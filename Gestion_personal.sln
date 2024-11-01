@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestion_personal", "Gestion
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Implementation", "Implementation\Implementation.csproj", "{021DB48B-A83F-4526-A770-383B2E6A37B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructures", "Infrastructures\Infrastructures.csproj", "{3D10A501-C3F1-46D8-8A1A-6EA6DC4FF998}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructures", "Infrastructures\Infrastructures.csproj", "{3D10A501-C3F1-46D8-8A1A-6EA6DC4FF998}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
