@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domains.Model.Employee;
+using GestionPersonnel.Models.Employe;
 using Infrastructures.Storages.EmployeStorages;
 using Services.Interfaces;
 
 namespace Services
 {
-	public class EmployeService : IEmployeService
+    public class EmployeService : IEmployeService
 	{
 		private readonly EmployeStorage _employeStorage;
 

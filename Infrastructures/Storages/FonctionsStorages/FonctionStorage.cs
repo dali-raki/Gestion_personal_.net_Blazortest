@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using GestionPersonnel.Models.Fonctions;
+using Microsoft.Extensions.Configuration;
 
 namespace GestionPersonnel.Storages.FonctionsStorages
 {
@@ -10,9 +11,10 @@ namespace GestionPersonnel.Storages.FonctionsStorages
     {
         private readonly string _connectionString;
 
-        public FonctionStorage(string connectionString)
+
+        public FonctionStorage(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DBConnection");
         }
 
         public async Task<List<Fonction>> GetAll()

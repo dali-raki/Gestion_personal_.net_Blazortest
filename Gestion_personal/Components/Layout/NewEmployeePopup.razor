@@ -1,0 +1,242 @@
+﻿@using GestionPersonnel.Models.Employe
+@using GestionPersonnel.Models.Fonctions
+@using GestionPersonnel.Services
+@inject IEmployeService EmployeService
+@inject IFonctionService FonctionService
+
+
+@code {
+	[Parameter] public bool IsVisible { get; set; }
+	[Parameter] public EventCallback OnClose { get; set; }
+	[Parameter] public EventCallback<Employe> OnSave { get; set; }
+	[Parameter] public Employe Employee { get; set; } = new Employe();
+	private List<Fonction> fonctions;
+	private bool isSubmitting;
+	protected override async Task OnInitializedAsync()
+	{
+		fonctions = await FonctionService.GetAllAsync();
+		Employee.DateDeNaissance = DateTime.Today;
+		Employee.DateEntree = DateTime.Today;
+	}
+	private string DisplayStyle => IsVisible ? "display: flex;" : "display: none;";
+	private string errorMessage;
+
+	private void Hide() => OnClose.InvokeAsync();
+
+	private async Task HandleSubmit()
+	{
+		if (isSubmitting) return;
+
+		isSubmitting = true;
+		errorMessage = null;
+
+
+		if (string.IsNullOrWhiteSpace(Employee.Nom) ||
+			string.IsNullOrWhiteSpace(Employee.Prenom) ||
+			Employee.DateDeNaissance == default ||
+			Employee.DateEntree == default)
+		{
+			errorMessage = "Please fill in all required fields.";
+			return;
+		}
+
+		
+		if (Employee.DateDeNaissance < new DateTime(1753, 1, 1) ||
+			Employee.DateDeNaissance > new DateTime(9999, 12, 31) ||
+			Employee.DateEntree < new DateTime(1753, 1, 1) ||
+			Employee.DateEntree > new DateTime(9999, 12, 31))
+		{
+			errorMessage = "Dates must be between 01/01/1753 and 12/31/9999.";
+			return;
+		}
+
+		try
+		{
+
+			await OnSave.InvokeAsync(Employee);
+			
+			Hide();
+		}
+		catch (Exception ex)
+		{
+			errorMessage = "An error occurred while saving the employee: " + ex.Message;
+			Console.WriteLine("Error: " + errorMessage);
+		}
+		finally
+		{
+			isSubmitting = false; 
+		}
+	}
+	
+
+	private async Task HandleFileSelected(InputFileChangeEventArgs e)
+	{
+		var file = e.File;
+		if (file != null)
+		{
+			using (var stream = new MemoryStream())
+			{
+				await file.OpenReadStream(maxAllowedSize: 2 * 1024 * 1024).CopyToAsync(stream);
+			
+				Employee.Photo = stream.ToArray();
+			}
+		}
+	}
+
+}
+
+<div class="popup-overlay" style="@DisplayStyle">
+	<div class="popup-content">
+		<h3>Ajouter Employe</h3>
+		@if (!string.IsNullOrEmpty(errorMessage))
+		{
+			<div class="alert alert-danger">@errorMessage</div>
+		}
+		<form @onsubmit="HandleSubmit">
+			<div class="form-grid">
+				<div class="form-group">
+					<label>Nom:</label>
+					<input type="text" @bind="Employee.Nom" class="form-control" required />
+				</div>
+				<div class="form-group">
+					<label>Prenom:</label>
+					<input type="text" @bind="Employee.Prenom" class="form-control" required />
+				</div>
+				<div class="form-group">
+					<label>Date de Naissance:</label>
+					<input type="date" @bind="Employee.DateDeNaissance" class="form-control" required />
+				</div>
+				<div class="form-group">
+					<label>Date Entree:</label>
+					<input type="date" @bind="Employee.DateEntree" class="form-control" required />
+				</div>
+				<div class="form-group">
+					<label>N Sécurité Sociale:</label>
+					<input type="text" @bind="Employee.NSecuriteSocial" class="form-control" required />
+				</div>
+				<div class="form-group">
+					<label>Group Sanguin:</label>
+					<select @bind="Employee.GroupSanguin" class="form-control" required>
+						<option value="">-- Select Blood Type --</option>
+						<option value="O+">O+</option>
+						<option value="O-">O-</option>
+						<option value="A+">A+</option>
+						<option value="A-">A-</option>
+						<option value="B+">B+</option>
+						<option value="B-">B-</option>
+						<option value="AB+">AB+</option>
+						<option value="AB-">AB-</option>
+					</select>
+				</div>
+
+				@if (fonctions != null && fonctions.Any())
+				{
+
+					<select @bind="Employee.FonctionID" class="form-control" required>
+						<label>Fonction:</label>
+						<option value="">-- Select Fonction --</option>
+						@foreach (var fonction in fonctions)
+						{
+							<option value="@fonction.FonctionID">@fonction.NomFonction</option>
+						}
+					</select>
+
+				}
+				else
+				{
+					<div>No functions available.</div>
+				}
+
+
+				<div class="form-group">
+					<label>Adresse:</label>
+					<input type="text" @bind="Employee.Adresse" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>N Telephone:</label>
+					<input type="text" @bind="Employee.NTelephone" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Situation Familiale:</label>
+					<input type="text" @bind="Employee.SitiationFamiliale" class="form-control" />
+				</div>
+				<div class="form-group photo-group">
+					<label>Photo:</label>
+					<div class="photo-card">
+						<InputFile OnChange="HandleFileSelected" class="form-control" />
+					</div>
+				</div>
+			</div>
+
+			<div class="button-group">
+				<button type="submit" class="btn btn-success">Save</button>
+				<button type="button" class="btn btn-secondary" @onclick="Hide">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<style>
+	.popup-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1000;
+	}
+
+	.popup-content {
+		background-color: white;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		width: 400px;
+		max-width: 90%;
+	}
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-control {
+		width: 100%; 
+		height: 38px; 
+	}
+
+	.photo-group {
+		grid-column: span 2; 
+	}
+
+	.photo-card {
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 10px;
+		background-color: #f9f9f9; 
+	}
+
+	.button-group {
+		margin-top: 20px;
+		display: flex;
+		justify-content: flex-end; 
+	}
+
+	button {
+		margin-left: 10px; 
+	}
+
+	.alert {
+		margin-bottom: 15px; 
+	}
+</style>

@@ -1,5 +1,7 @@
 using Blazored.Modal;
 using Gestion_personal.Components;
+using GestionPersonnel.Services;
+using GestionPersonnel.Storages.FonctionsStorages;
 using Implementation.App.Employee;
 using Infrastructures.Storages.EmployeStorages;
 using MudBlazor.Services;
@@ -16,11 +18,11 @@ builder.Services.AddSingleton<IConfiguration>(provider =>
 	new ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
 
 builder.Services.AddScoped<EmployeStorage>();
-
+builder.Services.AddScoped<FonctionStorage>();
 
 builder.Services.AddScoped<IEmployeService, EmployeService>();
-builder.Services.AddBlazoredModal();
 
+builder.Services.AddScoped<IFonctionService, FonctionService>();
 
 
 

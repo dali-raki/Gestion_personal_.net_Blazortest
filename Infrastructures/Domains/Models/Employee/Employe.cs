@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domains.Model.Employee {
+namespace GestionPersonnel.Models.Employe
+{
+    
     public class Employe
     {
         private List<Employe> employees = new List<Employe>();

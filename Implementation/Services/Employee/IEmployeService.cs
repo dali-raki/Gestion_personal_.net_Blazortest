@@ -1,13 +1,14 @@
-﻿using System;
+﻿using GestionPersonnel.Models.Employe;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 using System.Threading.Tasks;
-using Domains.Model.Employee;
+
 namespace Services.Interfaces
 {
-	public interface IEmployeService
+    public interface IEmployeService
 	{
 		Task<List<Employe>> GetEmployeesAsync();
 

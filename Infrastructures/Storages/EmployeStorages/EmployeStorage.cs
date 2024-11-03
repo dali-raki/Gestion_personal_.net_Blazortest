@@ -1,5 +1,4 @@
-﻿using Domains.Model.Employee;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -7,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GestionPersonnel.Models.Employe;
+
 
 namespace Infrastructures.Storages.EmployeStorages
 {
-	public class EmployeStorage
+    public class EmployeStorage
 	{
 		private readonly string _connectionString;
 
