@@ -1,0 +1,65 @@
+﻿  @using GestionPersonnel.Models.Employe
+    @using GestionPersonnel.Services
+    @inject IEmployeService EmployeService
+<div class="modal-overlay" style="@DisplayStyle">
+    <div class="modal-content">
+
+        <span class="close-btn" @onclick="Hide">&times;</span>
+<h3>Ajoutet Post</h3>
+
+<form>
+  
+    <label>Date De Fin De Poste</label>
+	<input type="date" />
+
+	<label>ID Post</label>
+	<input type="date" />
+
+	<label>Choisi L'Equipe</label>
+    <select>
+        <option>-- Choisir Employe</option>
+        @if (employes != null)
+            @foreach (var employe in employes)
+            {
+                <option value="@employe.EmployeID">@employe.Nom @employe.Prenom</option>
+            }
+        else
+        {
+            <option>-- Null --</option>
+        }
+    </select>
+
+    <label>Choisi Les Membre Qui Finit Le Post</label>
+    @if (employes != null)
+    {
+        @foreach (var employe in employes)
+        {
+            <label>
+                <input type="checkbox" value="@employe.EmployeID">
+                @employe.Nom @employe.Prenom
+            </label>
+            <br />
+        }
+    }
+    else
+    {
+        <p>Loading employees...</p>
+    }
+
+            <button type="submit">Ajouter Paiment</button>
+</form>
+</div>
+</div>
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    private List<Employe> employes;
+
+    private string DisplayStyle => IsVisible ? "display: flex;" : "display: none;";
+    protected override async Task OnInitializedAsync()
+    {
+        employes = await EmployeService.GetEmployeesAsync();
+    }
+
+    private void Hide() => OnClose.InvokeAsync();
+}

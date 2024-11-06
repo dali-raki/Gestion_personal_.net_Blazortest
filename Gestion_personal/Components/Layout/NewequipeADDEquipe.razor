@@ -1,0 +1,73 @@
+﻿<div class="modal-overlay" style="@DisplayStyle">
+    <div class="modal-content">
+        <!-- Close Button -->
+        <span class="close-btn" @onclick="Hide">&times;</span>
+<h3>Ajouter Equipe</h3>
+<form>
+
+	<label>Nom D'Equipe</label>
+	<input type="text"/>
+
+
+    <label>Choisir Fonction</label>
+    <select>
+        <option>-- Choisir Fonction --</option>
+        @if (employes != null)
+            @foreach (var employe in employes)
+            {
+                <option value="@employe.EmployeID">@employe.Nom @employe.Prenom</option>
+            }
+        else
+        {
+            <option>-- Null --</option>
+        }
+    </select>
+
+    <label>Choisir Le Chef D'equipe</label>
+    <select>
+                <option>-- Choisir Chef D'equipe --</option>
+        @if (employes != null)
+            @foreach (var employe in employes)
+            {
+                <option value="@employe.EmployeID">@employe.Nom @employe.Prenom</option>
+            }
+        else
+        {
+            <option>-- Null --</option>
+        }
+    </select>
+
+    <label>Choisi Les Membre D'equipe</label>
+    @if (employes != null)
+    {
+        @foreach (var employe in employes)
+        {
+            <label>
+                <input type="checkbox" value="@employe.EmployeID">
+                @employe.Nom @employe.Prenom
+            </label>
+            <br />
+        }
+    }
+    else
+    {
+        <p>Loading employees...</p>
+    }
+
+            <button type="submit">Ajouter Paiment</button>
+</form>
+</div>
+</div>
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    private List<Employe> employes;
+
+    private string DisplayStyle => IsVisible ? "display: flex;" : "display: none;";
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+
+    private void Hide() => OnClose.InvokeAsync();
+}
