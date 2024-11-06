@@ -59,3 +59,51 @@
         .side-bar div p {
         margin-left:10px;
     }
+
+        /**==================*/
+
+.side-bar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+    height: 100%;
+    padding-top: 20px;
+    align-items: flex-start;
+    transition: width 0.3s ease; 
+}
+
+    .side-bar.collapsed {
+        width: 50px; 
+    }
+
+    .side-bar a div {
+        height: 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        display: flex;
+        align-items: baseline;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .side-bar div i {
+        font-size: 22px;
+    }
+
+    .side-bar div p {
+        margin-left: 10px;
+        transition: opacity 0.3s ease; 
+    }
+
+   
+    .side-bar.collapsed div p {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+/**==================*/
+

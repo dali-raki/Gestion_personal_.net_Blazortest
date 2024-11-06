@@ -1,4 +1,8 @@
-﻿@page "/vv"
+﻿@page "/g"
+@using GestionPersonnel.Services
+@using GestionPersonnel.Models.Fonctions
+@inject IFonctionService FonctaionService
+@rendermode InteractiveServer
 
 <div class="paiement-pop-up">
 
@@ -10,7 +14,14 @@
 		<div class="panel-titel">
 			<p>Ajouter Fonction</p>
 		</div>
-
+		@* <select>
+			@foreach (var fonction in fonctions)
+			{
+				<option value="@fonction.FonctionID">@fonction.NomFonction</option>
+			}
+		</select> *@
+		
+		
 
 
 		<div class="line3">
@@ -24,5 +35,16 @@
 
 
 	</div>
+	<buttton @Oncklick="add function"></buttton>
 </div>
+@code{
+	private List<Fonction> fonctions= new List<Fonction>();
 
+	protected override async Task OnInitializedAsync()
+	{
+		fonctions = await FonctaionService.GetAllAsync();
+	}
+
+
+
+}

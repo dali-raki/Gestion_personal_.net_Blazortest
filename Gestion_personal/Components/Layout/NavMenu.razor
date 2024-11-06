@@ -15,24 +15,25 @@
 
 </div>
 
-<div class="side-bar">
+<div class="side-bar" id="sidebar">
 
 
-	<a href="#"><div><i class="fa-solid fa-bars"></i> <p>Menu</p> </div></a>
+	<a id="menuToggle"><div><i class="fa-solid fa-bars"></i> <p>Menu</p> </div></a>
 	<a href="/Dashboard">	<div><i class="fa-solid fa-house"></i><p>Dashboard</p></div></a>
 	<a href="/employe">	<div><i class="fa-solid fa-user"></i> <p>Employe</p> </div></a>
 	<a href="/Equipe">	<div><i class="fa-solid fa-user-group"></i><p>Equipe</p> </div></a>
 	<a href="/Pointage">	<div><i class="fa-solid fa-clipboard-list"></i> <p>Pointage</p></div></a>
 	<a href="/Paiement">	<div><i class="fa-solid fa-hand-holding-dollar"></i> <p>Paiement</p></div></a>
 	<a href="/Dette">	<div><i class="fa-solid fa-sack-xmark"></i> <p>Dette</p></div></a>
-	<a href="#">	<div><i class="fa-solid fa-right-from-bracket"></i> <p>Desconnecter</p></div></a>
+	<a>	<div><i class="fa-solid fa-right-from-bracket"></i> <p>Desconnecter</p></div></a>
 	
-	
-	
+	<script>
+		document.getElementById('menuToggle').addEventListener('click', function () {
+			const sidebar = document.getElementById('sidebar');
+			sidebar.classList.toggle('collapsed');
+		});
 
-
-
-
+	</script>
 
 
 </div>

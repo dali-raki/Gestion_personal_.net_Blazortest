@@ -2,7 +2,9 @@ using Blazored.Modal;
 using Gestion_personal.Components;
 using GestionPersonnel.Services;
 using GestionPersonnel.Storages.FonctionsStorages;
+using GestionPersonnel.Storages.TypeDePaimentStorages;
 using Implementation.App.Employee;
+using Implementation.Services.TypeDePaiment;
 using Infrastructures.Storages.EmployeStorages;
 using MudBlazor.Services;
 using Services;
@@ -20,9 +22,11 @@ builder.Services.AddSingleton<IConfiguration>(provider =>
 builder.Services.AddScoped<EmployeStorage>();
 builder.Services.AddScoped<FonctionStorage>();
 
+
 builder.Services.AddScoped<IEmployeService, EmployeService>();
 
 builder.Services.AddScoped<IFonctionService, FonctionService>();
+
 
 
 

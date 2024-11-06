@@ -1,12 +1,9 @@
 ﻿@page "/paiement"
 @rendermode InteractiveServer
+@inject IEmployeService EmployeService
 
 <div class="panel-employe">
-
-
     <div class="option-employe">
-
-
         <div class="input-group w-25">
             <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
             <input type="date" class="date-input" />
@@ -14,21 +11,16 @@
         </div>
 
         <div class="btn-employe">
-
-            <button>Ajouter Employeur Paiement</button>
-
+            <button @onclick="ShowPopup">Ajouter Employeur Paiement</button>
         </div>
-
     </div>
 
-
     <div class="tab-employe">
-
         <table class="table">
             <thead>
                 <tr>
                     <th>N</th>
-                    <th>Nom</th> 
+                    <th>Nom</th>
                     <th>Fonction</th>
                     <th>Type Paiement</th>
                     <th>Salaire</th>
@@ -37,11 +29,9 @@
                     <th>Dettes</th>
                     <th>SalaireNet</th>
                     <th>Option</th>
-
                 </tr>
             </thead>
             <tbody>
-
                 <tr>
                     <td>N</td>
                     <td>Nom</td>
@@ -52,26 +42,32 @@
                     <td>Avances</td>
                     <td>Dettes</td>
                     <td>SalaireNet</td>
-          
                     <td>
                         <button class="btn btn-primary">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                      
                     </td>
-
-
-
-
-
                 </tr>
-
             </tbody>
-
         </table>
-
-
     </div>
-
-
 </div>
+
+
+
+<NewpaiementPopUp IsVisible="@IsVisible" OnClose="@HidePopup" />
+
+
+
+@code{
+    private bool IsVisible = false;
+
+    private void ShowPopup()
+    {
+        IsVisible = true;
+    }
+    private void HidePopup()
+    {
+        IsVisible = false;
+    }
+}

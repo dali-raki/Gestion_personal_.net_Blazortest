@@ -23,7 +23,7 @@ namespace GestionPersonnel.Services
         {
             return await _fonctionStorage.GetById(fonctionId);
         }
-
+        
         public async Task AddAsync(Fonction fonction)
         {
             await _fonctionStorage.Add(fonction);
