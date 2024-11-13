@@ -1,0 +1,63 @@
+﻿
+<div class="modal-overlay" style="@DisplayStyle">
+    <div class="modal-content">
+
+        <span class="close-btn" @onclick="Hide">&times;</span>
+
+        <div class="pos-option-fich-avance">
+            <div class="search">
+            <input type="date">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <button>Gerrer Fiche PDF </button>
+        </div>
+   
+
+        <div class="tab-employe">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>N</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>  
+                        <th>Valuer Avances</th>
+                        
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td class="a">N</td>
+                        <td class="a">Nom</td>
+                        <td class="a">Prenom</td>
+                        <td class="a">Valuer Avances</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+
+    private string DisplayStyle => IsVisible ? "display: flex;" : "display: none;";
+    protected override async Task OnInitializedAsync()
+    {
+      
+    }
+
+    private void Hide() => OnClose.InvokeAsync();
+
+}

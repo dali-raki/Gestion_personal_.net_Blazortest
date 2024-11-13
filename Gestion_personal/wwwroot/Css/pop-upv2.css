@@ -16,7 +16,7 @@
 .modal-content {
     background-color: #ffffff;
     padding: 20px;
-    width: 450px;
+    width: 100%;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -43,7 +43,8 @@
 
     .modal-content select,
     .modal-content input[type="text"],
-    .modal-content input[type="image"],
+    .modal-content input[type="number"],
+    .modal-content input[type="date"],
     .modal-content button {
         margin-top: 10px;
         padding: 10px;
@@ -68,7 +69,6 @@
         cursor: pointer;
         font-weight: bold;
         transition: background-color 0.3s ease;
-        margin-top: 20px;
     }
 
         .modal-content button:hover {
@@ -84,3 +84,73 @@
     cursor: pointer;
     color: #000;
 }
+
+.modal-content-custom .input-date-custom,
+.modal-content-custom .button-custom {
+    margin: 10px 5px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.button-custom {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .button-custom:hover {
+        background-color: #0056b3;
+    }
+
+.tab-employe-custom .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table-custom th, .table-custom td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table-custom th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table-custom td.cell-custom {
+    color: #333;
+}
+
+/* Option Button */
+.table-custom .btn-primary-custom {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .table-custom .btn-primary-custom:hover {
+        background-color: #218838;
+    }
+
+/* Font Awesome Icon Adjustments */
+.icon-custom {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.pos-option-fich-avance {
+    display: flex;
+    justify-content: space-between;
+}
+    .pos-option-fich-avance .search {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }

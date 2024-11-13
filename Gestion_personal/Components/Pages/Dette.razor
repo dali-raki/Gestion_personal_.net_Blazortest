@@ -1,5 +1,6 @@
 ﻿@page "/dette"
 @rendermode InteractiveServer
+@using Gestion_personal.Components.Layout.Dettes
 
 
 <div class="panel-employe">
@@ -16,9 +17,10 @@
         <div class="btn-employe">
 
 
-            <button>Fiche des Avances</button>
-            <button>Montant Retiree</button>
-            <button>Ajouter Dette/Avance</button>
+            <button @onclick="ShowPopup4">Fiche des Avances</button>
+            <button @onclick="ShowPopup3">Montant Retiree</button>
+            <button @onclick="ShowPopup">Ajouter Dette</button>
+            <button @onclick="ShowPopup2">Ajouter Avance</button>
 
         </div>
 
@@ -74,3 +76,81 @@
 
 
 </div>
+
+<ADDDette IsVisible="@IsVisible" OnClose="@HidePopup" />
+<ADDAvance IsVisible="@IsVisible2" OnClose="@HidePopup2" />
+<MontantRetiree IsVisible="@IsVisible3" OnClose="@HidePopup3" />
+<FiceAvance IsVisible="@IsVisible4" OnClose="@HidePopup4"/>
+
+
+@code{
+    private bool IsVisible = false;
+
+    private bool IsVisible2 = false;
+
+    private bool IsVisible3 = false;
+
+    private bool IsVisible4 = false;
+
+
+
+
+
+    private void ShowPopup()
+    {
+        IsVisible = true;
+    }
+
+    private void HidePopup()
+    {
+        IsVisible = false;
+    }
+
+
+
+
+
+    private void ShowPopup2()
+    {
+        IsVisible2 = true;
+    }
+
+
+
+    private void HidePopup2()
+    {
+        IsVisible2 = false;
+    }
+
+    private void ShowPopup3()
+
+    {
+
+        IsVisible3 = true;
+
+    }
+
+    private void HidePopup3()
+
+    {
+
+        IsVisible3 = false;
+
+    }
+
+ private void ShowPopup4()
+
+    {
+
+        IsVisible4 = true;
+
+    }
+
+    private void HidePopup4()
+
+    {
+
+        IsVisible4 = false;
+
+    }
+}
